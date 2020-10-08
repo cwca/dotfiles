@@ -1,0 +1,541 @@
+; -*- emacs-lisp -*-
+
+
+;;;
+;;; User Settings
+;;;
+
+(setq user-full-name "Chris Walsh")
+(setq user-mail-address "chris@walshemail.ca")
+
+;; Set location for Sunrise/Sunset calculation
+
+;;(setq calendar-location-name "Toronto, ON")
+;;(setq calendar-latitude 43.67)
+;;(setq calendar-longitude -79.37)
+
+(setq calendar-location-name "16 Island Lake, QC")
+(setq calendar-latitude   45.920833)
+(setq calendar-longitude -74.466111)
+
+
+;;;
+;;; local-setting.el
+;;;
+
+(add-to-list 'load-path "~/.emacs.d/lisp")
+
+(let ((local-init-file "~/.emacs.d/lisp/local-setting.el"))
+  (if (file-readable-p local-init-file)
+      (load-file local-init-file)))
+
+
+;;;
+;;; Packages
+;;;
+
+(if (> emacs-major-version 24)
+    (progn
+      (require 'package)
+      (package-initialize)
+      (setq package-check-signature nil)  ; workaround public key failure
+      (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))))
+
+;; Usage - restore and update packages manually
+;;
+;; (package-refresh-contents)
+;;
+;; (package-install 'markdown-mode)
+;; (package-install 'auto-complete)
+;; (package-install 'git-gutter)
+;; (package-install 'ac-slime)   ;; auto-complete for Superior Lisp Enviornment (SLIME)
+;; (package-install 'swift-mode)
+;; (package-install 'go-mode)
+;; (package-install 'gist)
+;; (package-install 'cmake-mode)
+;; (package-install 'csharp-mode)
+;; (package-install 'rust-mode)
+;; (package-install 'yaml-mode)     
+;; (package-install 'flycheck)   ;; syntax checking
+;; (package-install 'paredit)    ;; structured editing of S-expression data (Lisp/Scheme)
+;; (package-install 'python-mode)
+;; (package-install 'elpy)
+;; (package-install 'solarized-theme)
+;; (package-install 'graphviz-dot-mode)
+;; (package-install 'web-mode)
+
+;; Other packages used in the past, but not currently.
+;; (package-install 'htmlize)    ;; convert buffer and text decorations to HTML
+;; (package-install 'lua-mode)
+;; (package-install 'magit)      ;; git interface
+;; (package-install 'org))
+;; (package-install 'writegood-mode)  ;; Writing checks - Weasel Words, Passive Voice, Duplicates
+;;
+;; Notes:
+;;   1.  Delete ~/.emacs.d/elpa if the installed package is outdated.
+;;   2.  'package-install' modifies .emacs automatically.
+;;       Revert its change and set 'package-selected-packages' in .emacs manually.
+
+;;;
+;;; Environments
+;;;
+
+(set-language-environment 'UTF-8)
+
+;;;
+;;; Basic Settings
+;;;
+
+;; Disable backup and autosave
+(setq make-backup-files nil)
+(setq auto-save-default nil)
+
+;; Disable startup messages
+(setq inhibit-startup-message t)
+(setq inhibit-splash-screen t)
+(setq initial-scratch-message nil)
+
+;; allow y/n instead of yes/no on prompts
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; show parenthesis
+(show-paren-mode 1)
+(setq show-paren-style 'mixed)
+(electric-pair-mode 1)
+
+;; truncate lines, don't wrap.
+(set-default 'truncate-lines t)
+
+;; Narrow-to-region C-x n n and C-x n w
+(put 'narrow-to-region 'disabled nil)
+
+;; misc
+(display-time)
+(delete-selection-mode t)
+(transient-mark-mode t)
+(setq column-number-mode t)
+(setq visible-bell t)
+(setq echo-keystrokes 0.1)
+
+(setq-default indicate-empty-lines t)
+(when (not indicate-empty-lines)
+  (toggle-indicate-empty-lines))
+(setq use-dialog-box nil)
+
+(setq x-select-enable-clipboard t)
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+
+(setq fill-column 79)
+
+;; Disable scrollbar, menubar, toolbar
+(if window-system
+    (set-scroll-bar-mode nil)
+  (setq scroll-bar-mode nil))
+(menu-bar-mode -1)
+(if window-system
+    (tool-bar-mode -1))
+
+;; Don't indent with tab
+(setq default-tab-width 2)  ; Google C++ Style
+(setq-default indent-tabls-mode nil)
+
+
+;;;
+;;; Programming Major Modes
+;;;
+
+;;; [C Mode]
+
+;; Applies to C, C++, Objective-C, and Java
+(add-hook 'c-mode-common-hook
+          '(lambda ()
+             (subword-mode 1)  ; Google C++ style uses MixedCase
+             (outline-minor-mode)
+             (setq show-trailing-whitespace t)
+             (c-toggle-auto-hungry-state -1)
+             (c-toggle-auto-newline -1)
+             (c-toggle-electric-state t)
+             ;; ff-find-other-file will read #include lines, use
+             ;; ff-get-other-file instead.
+             (local-set-key  (kbd "M-h") 'ff-get-other-file) ;; be compatible with ST3
+             (setq c-tab-always-indent t)
+             ;; C++ style
+             (setq comment-start "//" comment-end "")
+             (local-set-key [(return)] 'newline-and-indent)
+             (set (make-local-variable 'cc-other-file-alist)
+                  '(("\\.m\\'" (".h"))
+                    ("\\.mm\\'" (".h"))
+                    ("\\.h\\'" (".m" ".mm" ".c" ".cpp" ".cc"))
+                    ("\\.c\\'" (".h"))
+                    ("\\.cpp\\'" (".h" ".hxx" ".hpp"))
+                    ("\\.cc\\'" (".h" ".hxx" ".hpp"))
+                    ("\\.cxx\\'" (".h" ".hxx"))
+                    ("\\.hxx\\'" (".cc" ".cxx" ".cpp"))
+                    ("\\.hpp\\'" (".cc" ".cxx" ".cpp"))
+                    ))))
+
+;; Set style for special projects.
+(add-hook 'c-mode-common-hook
+          '(lambda ()
+             ;; Android (interfere with Java code)
+             ;; (if (my-is-android-file-p)
+             ;;     (progn
+             ;;       (setq c-basic-offset 2)
+             ;;       (setq-local fill-column 80)
+             ;;       (setq-local whitespace-line-column 80)))
+             (if (my-is-linux-file-p)
+                 (progn
+                   (c-set-style "linux")
+                   (subword-mode 0)
+                   (setq comment-start "/*" comment-end "*/")
+                   (setq indent-tabs-mode t)))))
+
+;;; [Python Mode]
+
+(add-hook 'python-mode-hook
+          (lambda ()
+            (outline-minor-mode)
+            (subword-mode)  ; Python uses MixedCase
+            (setq show-trailing-whitespace t)
+            (setq tab-width 2)  ; python-mode overrides tab-width to 8
+            (setq-local fill-column 79)
+            (setq python-indent-offset 4)))
+
+;;; [Java Mode]
+
+(add-hook 'java-mode-hook
+          (lambda ()
+            (setq-local fill-column 100)))
+
+
+;;; [Obj-C Mode]
+
+(add-to-list 'auto-mode-alist '("\\.mm$" . objc-mode))
+
+(add-hook 'objc-mode-hook
+          '(lambda ()
+             (subword-mode 1)  ; Obj-C uses MixedCase.
+             ;; People don't wrap lines in Obj-C files.
+             (setq truncate-lines nil)))
+
+;;; [Swift Mode]
+
+(when (require 'swift-mode nil 'noerror)
+  (add-hook 'swift-mode-hook
+            '(lambda ()
+               (subword-mode 1)  ; Swift uses MixedCase.
+               ;; People don't wrap lines in Swift.
+               (setq truncate-lines nil))))
+
+
+;;; [Go Mode]
+
+;; See http://tleyden.github.io/blog/2014/05/22/configure-emacs-as-a-go-editor-from-scratch/
+(when (require 'go-mode nil 'noerror)
+  (progn
+    (if (> emacs-major-version 24)
+        ;; It's standard practice to run gofmt when saving.
+        (add-hook 'before-save-hook 'gofmt-before-save))
+    (add-hook 'go-mode-hook
+              '(lambda ()
+                 (subword-mode 1)  ; Go uses MixedCase.
+                 (setq truncate-lines nil)  ; no line wrapping in Go
+                 ))))
+
+;;; [CUDA - C++ Mode]
+
+(add-to-list 'auto-mode-alist '("\\.cu$" . c++-mode))
+
+
+;;; [GN - Python Mode]
+
+(add-to-list 'auto-mode-alist '("\\.gn$" . python-mode))
+
+;;; [JavaScript - JS2 Mode]
+
+(when (require 'js2-mode nil 'noerror)
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+  (add-hook 'js2-mode-hook
+            (lambda ()
+            ;; Scan the file for nested code blocks
+            (setq js2-basic-offset 2)
+            (subword-mode 1)
+            (setq truncate-lines nil))))
+
+
+;;; [HTML - Web Mode]
+
+(when (require 'web-mode nil 'noerror)
+  (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+  (add-hook 'web-mode-hook
+          '(lambda ()
+             (setq truncate-lines nil)
+             (setq web-mode-enable-auto-indentation nil))))
+
+;;; [CSS Mode]
+
+;; Support .less file.
+(when (require 'css-mode nil t)
+  (add-to-list 'auto-mode-alist '("\\.less$" . css-mode)))
+
+(add-hook 'css-mode-hook
+          (lambda ()
+            (setq css-indent-offset 4)))
+
+;;; [SGML Mode]
+
+(require 'sgml-mode)
+(define-key sgml-mode-map "\\r" 'newline-and-ident)
+
+
+;;;
+;;; Non-Programming Major Modes
+;;;
+
+;;; [Outline Mode]
+
+(add-hook 'outline-mode-hook '(lambda ()
+                                ;; Collapse subnodes when opening outline file
+                                (hide-sublevels 1)))
+;;; [Flyspell Mode]
+
+(setq flyspell-issue-welcome-flag nil)
+(if (eq system-type 'darwin)
+	(setq-default ispell-program-name "/usr/local/bin/aspell")
+  (setq-default ispell-program-name "/usr/bin/aspell"))
+(setq-default ispell-list-command "list")
+
+
+;;; [Markdown Mode]
+
+(when (require 'markdown-mode nil t)
+  (add-hook 'markdown-mode-hook
+            (lambda ()
+              (flyspell-mode)
+              (outline-minor-mode)
+              (setq truncate-lines nil)
+              ;; Markdown mode override these keys. Set it back.
+              (local-set-key "\M-p" '(lambda () (interactive) (previous-line 3)))
+              (local-set-key "\M-n" '(lambda () (interactive) (next-line 3)))
+              )))
+
+;;; [Rebase Mode]
+
+;; Disable git-rebase mode.
+(setq auto-mode-alist (delete '("git-rebase-todo" . rebase-mode)
+                              auto-mode-alist))
+
+;;; [Dired Mode]
+
+(require 'dired-x)
+
+;; Use C-x M-o to toggle.
+(setq-default dired-omit-mode t) ; this is buffer-local variable
+
+;; Ignore dot files and system files on Mac.
+(setq dired-omit-files
+      (concat dired-omit-files
+              "\\|^\\..+$\\|desktop.ini\\|__pycache__\\|.DS_Store\\|.git\\|Thumbs.db\\|Icon\015"))
+
+;;; [Occur Mode]
+
+;; Bind p, n keys to be consistent with grep mode.
+(add-hook 'occur-mode-hook
+          '(lambda ()
+             (define-key occur-mode-map "p" '(lambda () (interactive)
+                                               (occur-prev)
+                                               (occur-mode-goto-occurrence-other-window)
+                                               (other-window 1)))
+             (define-key occur-mode-map "n"  '(lambda () (interactive)
+                                                (occur-next)
+                                                (occur-mode-goto-occurrence-other-window)
+                                                (other-window 1)))))
+
+;;; [Hexl Mode]
+
+(setq hexl-bits 8)
+
+
+;;;
+;;; Minor Modes
+;;;
+
+;;; [Auto Complete Mode]
+
+;; Enable global auto-complete mode
+(if (> emacs-major-version 24)  ; be compatible with old emacs
+    (progn
+      (setq package-selected-packages (quote (auto-complete)))
+      (ac-config-default)
+      (global-auto-complete-mode t)))
+
+;;; [Git Gutter Mode]
+
+(when (require 'git-gutter nil t)
+  (global-git-gutter-mode +1))
+
+;;; [Which Function Mode]
+
+(which-function-mode 1)
+;; It has performance penalty in Python.
+(setq which-func-modes '(python-mode c-mode c++-mode js2-mode java-mode go-mode))
+
+;;; [Outline Minor Mode]
+
+;; Use C-c C-c as prefix (We use C-c as key prefix in Outline Major Mode)
+(add-hook 'outline-minor-mode-hook
+          (lambda () (local-set-key "\C-c\C-c"
+                                    outline-mode-prefix-map)))
+
+
+
+;;;
+;;; Functions for local tools
+;;;
+
+(defun untabify-buffer ()
+  (interactive)
+  (untabify (point-min) (point-max)))
+
+(defun indent-buffer ()
+  (interactive)
+  (indent-region (point-min) (point-max)))
+
+(defun cleanup-buffer ()
+  (interactive)
+  (indent-buffer)
+  (untabify-buffer)
+  (delete-trailing-whitespace))
+
+(defun cleanup-region (beg end)
+  "Remove tmux artifacts from region."
+  (interactive "r")
+  (dolist (re '("\\\\│\·*\n" "\W*│\·*"))
+    (replace-regexp re "" nil beg end)))
+
+(defun dos2unix()
+  (interactive)
+  (set-buffer-file-coding-system 'unix 't))
+
+
+;;;
+;;; Platform-dependent settings
+;;;
+
+(defun arrange-frame (w h x y)
+  "Set the width, height, and x/y position of the current frame"
+  (let ((frame (selected-frame)))
+    (delete-other-windows)
+    (set-frame-position frame x y)
+    (set-frame-size frame w h)))
+
+
+(if window-system
+    (progn
+      (blink-cursor-mode -1)
+      (setq frame-title-format '(buffer-file-name "%f" ("b")))
+
+      ;; Set frame size as pre-programmed from top of file
+      (arrange-frame display-frame-width display-frame-height 715 0)
+
+      ;; Maximize all frames by default.
+      ;;(modify-all-frames-parameters '((fullscreen . maximized)))
+      )
+  (progn
+    ))
+
+(if (eq system-type 'gnu/linux)
+    (progn
+      (defun my-maximize-frame (&optional f)
+        (interactive)
+        ;; only work with GTK+ Emacs (Emacs must be configured with --with-x-toolkit=gtk)
+        ;;(set-frame-parameter f 'fullscreen 'maximized)
+	)
+
+      ;; This doesn't work. Don't know why.
+      ;; (add-hook 'after-make-frame-functions
+      ;;           '(lambda ()
+      ;;             (shell-command "wmctrl -r :ACTIVE: -btoggle,fullscreen")))
+
+      ;; Set the best Linux programming font - DejaVu Sans Mono.
+      (defun my-set-font (font-height)
+	(custom-set-faces
+	 `(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height ,(* font-height 10) :width normal :family "DejaVu Sans Mono" :embolden t))))))
+
+      ;; Shell in dired mode.
+      (setq dired-guess-shell-alist-user
+            `(
+              (".rar" "unrar x")
+              (".pdf" "evince")
+              (".avi" "gxine")
+              (".jpg" "eog")
+              (".bmp" "eog")
+              (".csv" "xdg-open")
+              (".xlsx" "xdg-open")
+              (".xls" "xdg-open")
+              (".htm" "google-chrome")
+              (".html" "google-chrome")
+              ))
+      ))
+
+(if (eq system-type 'darwin)
+    (progn
+      (defun my-maximize-frame (&optional f)
+        (interactive)
+        ;;(toggle-frame-fullscreen)
+	) ;; This method is only available after Emacs 24.4
+
+      ;; Set the best Mac programming font - Menlo.
+      (defun my-set-font (height)
+        ;; (let ((new-height (ffloor (* height 0.7))))  ;; Somehow the font level between Mac and Linux is different.
+        (set-frame-font
+         (format "-apple-Menlo-medium-normal-normal-*-%d-*-*-*-m-0-*-1" height)
+         t))
+
+      ;; Use Option key as Meta key (consistent with Mac key bindings).
+      (setq mac-option-modifier 'meta)
+
+      ;; PC style handling of Home/End key.
+      (global-set-key (kbd "<home>") 'move-beginning-of-line)
+      (global-set-key (kbd "<end>") 'move-end-of-line)
+
+      ;; "Ctrl+F4" in Mac is similar to "Alt-Tab" within the same workspace.
+      (global-set-key (kbd "<C-f4>") 'other-frame)
+
+      ;; Shell in dired mode.
+      (setq dired-guess-shell-alist-user
+            `(
+              (".rar" "unrar x")
+              (".jar" "jar xvf")
+              (".pdf" "open -a Preview")
+              (".jpg" "open -a Preview")
+              (".png" "open -a Preview")
+              (".md" "open -a Markoff")
+              (".xcodeproj" "open -a Xcode")
+              (".webloc" "open -a 'Google Chrome'")
+              (".htm" "open -a 'Google Chrome'")
+              (".html" "open -a 'Google Chrome'")
+              ))
+
+      ;; when launching Emacs from external program such as XCode
+      (setq ns-pop-up-frames 'nil)
+
+      ))
+
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("d91ef4e714f05fff2070da7ca452980999f5361209e679ee988e3c432df24347" "0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" default))
+ '(package-selected-packages
+   '(web-mode graphviz-dot-mode elpy python-mode flycheck solarized-theme paredit yaml-mode rust-mode csharp-mode cmake-mode gist go-mode swift-mode ac-slime auto-complete)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 130 :width normal :foundry "nil" :family "Menlo")))))
