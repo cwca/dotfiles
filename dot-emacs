@@ -437,7 +437,7 @@
       (setq frame-title-format '(buffer-file-name "%f" ("b")))
 
       ;; Set frame size as pre-programmed from top of file
-      (arrange-frame display-frame-width display-frame-height 715 0)
+      (arrange-frame display-frame-width display-frame-height display-frame-left 0)
 
       ;; Maximize all frames by default.
       ;;(modify-all-frames-parameters '((fullscreen . maximized)))
@@ -457,11 +457,6 @@
       ;; (add-hook 'after-make-frame-functions
       ;;           '(lambda ()
       ;;             (shell-command "wmctrl -r :ACTIVE: -btoggle,fullscreen")))
-
-      ;; Set the best Linux programming font - DejaVu Sans Mono.
-      (defun my-set-font (font-height)
-	(custom-set-faces
-	 `(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height ,(* font-height 10) :width normal :family "DejaVu Sans Mono" :embolden t))))))
 
       ;; Shell in dired mode.
       (setq dired-guess-shell-alist-user
@@ -485,13 +480,6 @@
         (interactive)
         ;;(toggle-frame-fullscreen)
 	) ;; This method is only available after Emacs 24.4
-
-      ;; Set the best Mac programming font - Menlo.
-      (defun my-set-font (height)
-        ;; (let ((new-height (ffloor (* height 0.7))))  ;; Somehow the font level between Mac and Linux is different.
-        (set-frame-font
-         (format "-apple-Menlo-medium-normal-normal-*-%d-*-*-*-m-0-*-1" height)
-         t))
 
       ;; Use Option key as Meta key (consistent with Mac key bindings).
       (setq mac-option-modifier 'meta)
@@ -524,18 +512,17 @@
       ))
 
 
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("d91ef4e714f05fff2070da7ca452980999f5361209e679ee988e3c432df24347" "0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" default))
- '(package-selected-packages
-   '(web-mode graphviz-dot-mode elpy python-mode flycheck solarized-theme paredit yaml-mode rust-mode csharp-mode cmake-mode gist go-mode swift-mode ac-slime auto-complete)))
+   '("0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "d91ef4e714f05fff2070da7ca452980999f5361209e679ee988e3c432df24347" default)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 130 :width normal :foundry "nil" :family "Menlo")))))
+ )
