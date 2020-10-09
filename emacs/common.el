@@ -24,6 +24,10 @@
 ;; Disable backup and autosave
 (setq make-backup-files nil)
 (setq auto-save-default nil)
+(setq auto-save-interval 0)
+(setq auto-save-timeout 0)
+(setq backup-directory-alist `((".*(" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 
 ;; Disable startup messages
 (setq inhibit-startup-message t)
@@ -43,6 +47,7 @@
 
 ;; Narrow-to-region C-x n n and C-x n w
 (put 'narrow-to-region 'disabled nil)
+
 
 ;; misc
 (display-time)
@@ -71,10 +76,9 @@
 (if window-system
     (tool-bar-mode -1))
 
-;; Don't indent with tab
-(setq default-tab-width 2)  ; Google C++ Style
-(setq-default indent-tabls-mode nil)
-
+;; Indentation
+(setq tab-width 4)
+(setq-default indent-tabs-mode nil) ;; don't indent with tab
 
 ;;;
 ;;; Programming Major Modes
@@ -95,6 +99,8 @@
              ;; ff-get-other-file instead.
              (local-set-key  (kbd "M-h") 'ff-get-other-file) ;; be compatible with ST3
              (setq c-tab-always-indent t)
+	     (setq tab-width 2)  ; Google C++ Style
+             (setq c-basic-offset 2)
              ;; C++ style
              (setq comment-start "//" comment-end "")
              (local-set-key [(return)] 'newline-and-indent)
@@ -159,6 +165,7 @@
 (when (require 'swift-mode nil 'noerror)
   (add-hook 'swift-mode-hook
             '(lambda ()
+	       (setq tab-width 4)
                (subword-mode 1)  ; Swift uses MixedCase.
                ;; People don't wrap lines in Swift.
                (setq truncate-lines nil))))
@@ -353,6 +360,13 @@
   (interactive)
   (set-buffer-file-coding-system 'unix 't))
 
+(global-set-key "%" 'match-paren)
+(defun match-paren (arg)
+  "Go to the matching paren if on a paren; otherwise insert %."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+	((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+	(t (self-insert-command (or arg 1)))))
 
 ;;;
 ;;; Platform-dependent settings
