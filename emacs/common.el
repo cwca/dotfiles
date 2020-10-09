@@ -119,18 +119,10 @@
 ;; Set style for special projects.
 (add-hook 'c-mode-common-hook
           '(lambda ()
-             ;; Android (interfere with Java code)
-             ;; (if (my-is-android-file-p)
-             ;;     (progn
-             ;;       (setq c-basic-offset 2)
-             ;;       (setq-local fill-column 80)
-             ;;       (setq-local whitespace-line-column 80)))
-             (if (my-is-linux-file-p)
-                 (progn
-                   (c-set-style "linux")
-                   (subword-mode 0)
-                   (setq comment-start "/*" comment-end "*/")
-                   (setq indent-tabs-mode t)))))
+             (c-set-style "linux")
+             (subword-mode 0)
+             (setq comment-start "/*" comment-end "*/")
+             (setq indent-tabs-mode t)))
 
 ;;; [Python Mode]
 
@@ -396,16 +388,6 @@
 
 (if (eq system-type 'gnu/linux)
     (progn
-      (defun my-maximize-frame (&optional f)
-        (interactive)
-        ;; only work with GTK+ Emacs (Emacs must be configured with --with-x-toolkit=gtk)
-        ;;(set-frame-parameter f 'fullscreen 'maximized)
-	)
-
-      ;; This doesn't work. Don't know why.
-      ;; (add-hook 'after-make-frame-functions
-      ;;           '(lambda ()
-      ;;             (shell-command "wmctrl -r :ACTIVE: -btoggle,fullscreen")))
 
       ;; Shell in dired mode.
       (setq dired-guess-shell-alist-user
@@ -425,10 +407,6 @@
 
 (if (eq system-type 'darwin)
     (progn
-      (defun my-maximize-frame (&optional f)
-        (interactive)
-        ;;(toggle-frame-fullscreen)
-	) ;; This method is only available after Emacs 24.4
 
       ;; Use Option key as Meta key (consistent with Mac key bindings).
       (setq mac-option-modifier 'meta)
