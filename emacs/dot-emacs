@@ -1,0 +1,65 @@
+; -*- emacs-lisp -*-
+
+;;; Variables required for Common Settings
+
+(setq display-frame-width 88)
+(setq display-frame-height 56)
+(setq display-frame-left 715)
+
+;;;
+;;; Load Common Settings
+;;;
+
+(add-to-list 'load-path "~/.emacs.d/lisp")
+
+(let ((local-init-file "~/.emacs.d/lisp/cwca/dotfiles/emacs/common.el"))
+  (if (file-readable-p local-init-file)
+      (load-file local-init-file)))
+
+;;;
+;;; User Settings
+;;;
+
+(setq user-full-name "Chris Walsh")
+(setq user-mail-address "chris@walshemail.ca")
+
+;;;
+;;; Local Settings
+;;;
+
+(setq default-directory "~/work/github/cwca/jig-lang/")
+
+(if window-system
+    (load-theme 'tango)
+  (load-theme 'wombat))
+
+
+;; Set location for Sunrise/Sunset calculation
+
+;;(setq calendar-location-name "Toronto, ON")
+;;(setq calendar-latitude 43.67)
+;;(setq calendar-longitude -79.37)
+
+(setq calendar-location-name "16 Island Lake, QC")
+(setq calendar-latitude   45.920833)
+(setq calendar-longitude -74.466111)
+
+
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "d91ef4e714f05fff2070da7ca452980999f5361209e679ee988e3c432df24347" default)))
+ '(package-selected-packages
+   (quote
+    (web-mode graphviz-dot-mode solarized-theme elpy python-mode paredit flycheck yaml-mode rust-mode csharp-mode cmake-mode gist go-mode swift-mode ac-slime git-gutter markdown-mode auto-complete))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

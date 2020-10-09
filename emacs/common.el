@@ -1,34 +1,3 @@
-; -*- emacs-lisp -*-
-
-
-;;;
-;;; User Settings
-;;;
-
-(setq user-full-name "Chris Walsh")
-(setq user-mail-address "chris@walshemail.ca")
-
-;; Set location for Sunrise/Sunset calculation
-
-;;(setq calendar-location-name "Toronto, ON")
-;;(setq calendar-latitude 43.67)
-;;(setq calendar-longitude -79.37)
-
-(setq calendar-location-name "16 Island Lake, QC")
-(setq calendar-latitude   45.920833)
-(setq calendar-longitude -74.466111)
-
-
-;;;
-;;; local-setting.el
-;;;
-
-(add-to-list 'load-path "~/.emacs.d/lisp")
-
-(let ((local-init-file "~/.emacs.d/lisp/local-setting.el"))
-  (if (file-readable-p local-init-file)
-      (load-file local-init-file)))
-
 
 ;;;
 ;;; Packages
@@ -41,40 +10,6 @@
       (setq package-check-signature nil)  ; workaround public key failure
       (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))))
 
-;; Usage - restore and update packages manually
-;;
-;; (package-refresh-contents)
-;;
-;; (package-install 'markdown-mode)
-;; (package-install 'auto-complete)
-;; (package-install 'git-gutter)
-;; (package-install 'ac-slime)   ;; auto-complete for Superior Lisp Enviornment (SLIME)
-;; (package-install 'swift-mode)
-;; (package-install 'go-mode)
-;; (package-install 'gist)
-;; (package-install 'cmake-mode)
-;; (package-install 'csharp-mode)
-;; (package-install 'rust-mode)
-;; (package-install 'yaml-mode)     
-;; (package-install 'flycheck)   ;; syntax checking
-;; (package-install 'paredit)    ;; structured editing of S-expression data (Lisp/Scheme)
-;; (package-install 'python-mode)
-;; (package-install 'elpy)
-;; (package-install 'solarized-theme)
-;; (package-install 'graphviz-dot-mode)
-;; (package-install 'web-mode)
-
-;; Other packages used in the past, but not currently.
-;; (package-install 'htmlize)    ;; convert buffer and text decorations to HTML
-;; (package-install 'lua-mode)
-;; (package-install 'magit)      ;; git interface
-;; (package-install 'org))
-;; (package-install 'writegood-mode)  ;; Writing checks - Weasel Words, Passive Voice, Duplicates
-;;
-;; Notes:
-;;   1.  Delete ~/.emacs.d/elpa if the installed package is outdated.
-;;   2.  'package-install' modifies .emacs automatically.
-;;       Revert its change and set 'package-selected-packages' in .emacs manually.
 
 ;;;
 ;;; Environments
@@ -511,18 +446,3 @@
 
       ))
 
-
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "d91ef4e714f05fff2070da7ca452980999f5361209e679ee988e3c432df24347" default)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
