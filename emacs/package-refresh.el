@@ -12,6 +12,7 @@
 (package-install 'ac-slime)   ;; auto-complete for Superior Lisp Enviornment (SLIME)
 (package-install 'swift-mode)
 (package-install 'go-mode)
+(package-install 'julia-mode)
 (package-install 'gist)
 (package-install 'cmake-mode)
 (package-install 'csharp-mode)
