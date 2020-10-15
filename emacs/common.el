@@ -149,8 +149,8 @@
 (add-hook 'objc-mode-hook
           '(lambda ()
              (subword-mode 1)  ; Obj-C uses MixedCase.
-             ;; People don't wrap lines in Obj-C files.
-             (setq truncate-lines nil)))
+             ;;(setq truncate-lines nil)
+             ))
 
 ;;; [Swift Mode]
 
@@ -159,8 +159,8 @@
             '(lambda ()
 	       (setq tab-width 4)
                (subword-mode 1)  ; Swift uses MixedCase.
-               ;; People don't wrap lines in Swift.
-               (setq truncate-lines nil))))
+               ;;(setq truncate-lines nil)
+               )))
 
 
 ;;; [Go Mode]
