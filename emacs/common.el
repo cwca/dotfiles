@@ -123,7 +123,7 @@
              (c-set-style "linux")
              (subword-mode 0)
              (setq comment-start "/*" comment-end "*/")
-             (setq indent-tabs-mode t)))
+             (setq indent-tabs-mode nil)))
 
 ;;; [Python Mode]
 
