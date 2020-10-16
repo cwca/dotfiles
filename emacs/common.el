@@ -95,6 +95,7 @@
              (c-toggle-auto-hungry-state -1)
              (c-toggle-auto-newline -1)
              (c-toggle-electric-state t)
+             (c-set-offset 'case-label '+)
              ;; ff-find-other-file will read #include lines, use
              ;; ff-get-other-file instead.
              (local-set-key  (kbd "M-h") 'ff-get-other-file) ;; be compatible with ST3
