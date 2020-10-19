@@ -25,6 +25,8 @@
 (package-install 'solarized-theme)
 (package-install 'graphviz-dot-mode)
 (package-install 'web-mode)
+(package-install 'switch-window)
+
 
 ;; Other packages used in the past, but not currently.
 ;; (package-install 'htmlize)    ;; convert buffer and text decorations to HTML

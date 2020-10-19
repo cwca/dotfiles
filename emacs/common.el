@@ -8,8 +8,9 @@
       (require 'package)
       (package-initialize)
       (setq package-check-signature nil)  ; workaround public key failure
-      (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))))
-
+      (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
+      (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+      ))
 
 ;;;
 ;;; Environments
@@ -286,6 +287,10 @@
                                                 (occur-next)
                                                 (occur-mode-goto-occurrence-other-window)
                                                 (other-window 1)))))
+
+;; Change C-x o to 'switch-window'
+
+(global-set-key (kbd "C-x o") 'switch-window)
 
 ;;; [Hexl Mode]
 
