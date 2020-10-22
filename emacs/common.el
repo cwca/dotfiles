@@ -288,6 +288,31 @@
                                                 (occur-mode-goto-occurrence-other-window)
                                                 (other-window 1)))))
 
+;; Jig Mode
+
+;;
+;; Extending prefix keys for Jig
+;;
+
+(define-key 'iso-transl-ctl-x-8-map "f" [?ƒ])
+(define-key 'iso-transl-ctl-x-8-map "(" [?‹])
+(define-key 'iso-transl-ctl-x-8-map ")" [?›])
+(define-key 'iso-transl-ctl-x-8-map "X" [?•])
+(define-key 'iso-transl-ctl-x-8-map ";" [?←])
+(define-key 'iso-transl-ctl-x-8-map ":" [?→])
+(define-key 'iso-transl-ctl-x-8-map "<" [?≤])
+(define-key 'iso-transl-ctl-x-8-map ">" [?≥])
+(define-key 'iso-transl-ctl-x-8-map "=" [?≠])
+(define-key 'iso-transl-ctl-x-8-map "v" [?√])
+(define-key 'iso-transl-ctl-x-8-map "b" [?∧])
+(define-key 'iso-transl-ctl-x-8-map "c" [?∨])
+(define-key 'iso-transl-ctl-x-8-map "d" [?⊻])
+(define-key 'iso-transl-ctl-x-8-map "\\" [?«])
+(define-key 'iso-transl-ctl-x-8-map "|" [?»])
+(define-key 'iso-transl-ctl-x-8-map "D" [?∕])
+(define-key 'iso-transl-ctl-x-8-map "D" [?∕])
+
+
 ;; Change C-x o to 'switch-window'
 
 (global-set-key (kbd "C-x o") 'switch-window)
