@@ -8,7 +8,6 @@
 
 (package-install 'markdown-mode)
 (package-install 'auto-complete)
-(package-install 'git-gutter)
 (package-install 'ac-slime)   ;; auto-complete for Superior Lisp Enviornment (SLIME)
 (package-install 'swift-mode)
 (package-install 'go-mode)
@@ -26,6 +25,7 @@
 (package-install 'graphviz-dot-mode)
 (package-install 'web-mode)
 (package-install 'switch-window)
+(package-install 'vterm)
 
 
 ;; Other packages used in the past, but not currently.

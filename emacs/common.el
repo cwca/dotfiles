@@ -8,8 +8,16 @@
       (require 'package)
       (package-initialize)
       (setq package-check-signature nil)  ; workaround public key failure
-      (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
-      (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+      (setq package-archives
+            '(("GNU ELPA"     . "https://elpa.gnu.org/packages/")
+              ("MELPA Stable" . "https://stable.melpa.org/packages/")
+              ("MELPA"        . "https://melpa.org/packages/"))
+            package-archive-priorities
+            '(("MELPA Stable" . 10)
+              ("GNU ELPA"     . 5)
+              ("MELPA"        . 0)))
+      ;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
+      ;;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
       ))
 
 ;;;
@@ -160,8 +168,7 @@
   (add-hook 'swift-mode-hook
             '(lambda ()
 	       (setq tab-width 4)
-               (subword-mode 1)  ; Swift uses MixedCase.
-               ;;(setq truncate-lines nil)
+               (subword-mode 1)
                )))
 
 
@@ -176,7 +183,6 @@
     (add-hook 'go-mode-hook
               '(lambda ()
                  (subword-mode 1)  ; Go uses MixedCase.
-                 (setq truncate-lines nil)  ; no line wrapping in Go
                  ))))
 
 ;;; [CUDA - C++ Mode]
@@ -329,22 +335,11 @@
 ;;; [Auto Complete Mode]
 
 ;; Enable global auto-complete mode
-(if (> emacs-major-version 24)  ; be compatible with old emacs
-    (progn
-      (setq package-selected-packages (quote (auto-complete)))
-      (ac-config-default)
-      (global-auto-complete-mode t)))
-
-;;; [Git Gutter Mode]
-
-(when (require 'git-gutter nil t)
-  (global-git-gutter-mode +1))
-
-;;; [Which Function Mode]
-
-(which-function-mode 1)
-;; It has performance penalty in Python.
-(setq which-func-modes '(python-mode c-mode c++-mode js2-mode java-mode go-mode))
+;;(if (> emacs-major-version 24)  ; be compatible with old emacs
+;;    (progn
+;;      (setq package-selected-packages (quote (auto-complete)))
+;;      (ac-config-default)
+;;      (global-auto-complete-mode t)))
 
 ;;; [Outline Minor Mode]
 
@@ -383,13 +378,13 @@
   (interactive)
   (set-buffer-file-coding-system 'unix 't))
 
-(global-set-key "%" 'match-paren)
-(defun match-paren (arg)
-  "Go to the matching paren if on a paren; otherwise insert %."
-  (interactive "p")
-  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-	((looking-at "\\s\)") (forward-char 1) (backward-list 1))
-	(t (self-insert-command (or arg 1)))))
+;;(global-set-key "%" 'match-paren)
+;;(defun match-paren (arg)
+;;  "Go to the matching paren if on a paren; otherwise insert %."
+;;  (interactive "p")
+;;  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+;;	((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+;;	(t (self-insert-command (or arg 1)))))
 
 ;;;
 ;;; Platform-dependent settings
