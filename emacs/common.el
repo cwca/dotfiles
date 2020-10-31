@@ -310,14 +310,13 @@
 (define-key 'iso-transl-ctl-x-8-map ">" [?≥])
 (define-key 'iso-transl-ctl-x-8-map "=" [?≠])
 (define-key 'iso-transl-ctl-x-8-map "v" [?√])
-(define-key 'iso-transl-ctl-x-8-map "b" [?∧])
-(define-key 'iso-transl-ctl-x-8-map "c" [?∨])
-(define-key 'iso-transl-ctl-x-8-map "d" [?⊻])
 (define-key 'iso-transl-ctl-x-8-map "\\" [?«])
 (define-key 'iso-transl-ctl-x-8-map "|" [?»])
 (define-key 'iso-transl-ctl-x-8-map "D" [?∕])
 (define-key 'iso-transl-ctl-x-8-map "E" [?…])
 (define-key 'iso-transl-ctl-x-8-map "i" [?∆])  ;; 0x2206  INCREMENT
+(define-key 'iso-transl-ctl-x-8-map "M" [?∈])
+
 
 
 ;; Change C-x o to 'switch-window'

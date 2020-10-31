@@ -22,10 +22,12 @@
 (package-install 'python-mode)
 (package-install 'elpy)
 (package-install 'solarized-theme)
+(package-install 'spacemacs-theme)
 (package-install 'graphviz-dot-mode)
 (package-install 'web-mode)
 (package-install 'switch-window)
 (package-install 'vterm)
+(package-install 'org-bullets)
 
 
 ;; Other packages used in the past, but not currently.
