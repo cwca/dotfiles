@@ -300,23 +300,24 @@
 ;; Extending prefix keys for Jig
 ;;
 
-(define-key 'iso-transl-ctl-x-8-map "f" [?ƒ])
-(define-key 'iso-transl-ctl-x-8-map "(" [?‹])
-(define-key 'iso-transl-ctl-x-8-map ")" [?›])
-(define-key 'iso-transl-ctl-x-8-map "X" [?•])
-(define-key 'iso-transl-ctl-x-8-map ";" [?←])
-(define-key 'iso-transl-ctl-x-8-map ":" [?→])
-(define-key 'iso-transl-ctl-x-8-map "<" [?≤])
-(define-key 'iso-transl-ctl-x-8-map ">" [?≥])
-(define-key 'iso-transl-ctl-x-8-map "=" [?≠])
-(define-key 'iso-transl-ctl-x-8-map "v" [?√])
+(define-key 'iso-transl-ctl-x-8-map "f"  [?ƒ])
+(define-key 'iso-transl-ctl-x-8-map "("  [?‹])
+(define-key 'iso-transl-ctl-x-8-map ")"  [?›])
+(define-key 'iso-transl-ctl-x-8-map "X"  [?•])
+(define-key 'iso-transl-ctl-x-8-map ";"  [?←])
+(define-key 'iso-transl-ctl-x-8-map ":"  [?→])
+(define-key 'iso-transl-ctl-x-8-map "<"  [?≤])
+(define-key 'iso-transl-ctl-x-8-map ">"  [?≥])
+(define-key 'iso-transl-ctl-x-8-map "="  [?≠])
+(define-key 'iso-transl-ctl-x-8-map "v"  [?√])
 (define-key 'iso-transl-ctl-x-8-map "\\" [?«])
-(define-key 'iso-transl-ctl-x-8-map "|" [?»])
-(define-key 'iso-transl-ctl-x-8-map "D" [?∕])
-(define-key 'iso-transl-ctl-x-8-map "E" [?…])
-(define-key 'iso-transl-ctl-x-8-map "i" [?∆])  ;; 0x2206  INCREMENT
-(define-key 'iso-transl-ctl-x-8-map "M" [?∈])
-
+(define-key 'iso-transl-ctl-x-8-map "|"  [?»])
+(define-key 'iso-transl-ctl-x-8-map "D"  [?∕])
+(define-key 'iso-transl-ctl-x-8-map "e"  [?…])
+(define-key 'iso-transl-ctl-x-8-map "i"  [?∆])  ;; 0x2206  INCREMENT
+(define-key 'iso-transl-ctl-x-8-map "j"  [?◄])
+(define-key 'iso-transl-ctl-x-8-map "k"  [?►])
+(define-key 'iso-transl-ctl-x-8-map "E"  [?∈])  ;; 0x2208  ELEMENT OF
 
 
 ;; Change C-x o to 'switch-window'
