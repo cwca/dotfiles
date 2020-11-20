@@ -309,16 +309,19 @@
 (define-key 'iso-transl-ctl-x-8-map "<"  [?≤])
 (define-key 'iso-transl-ctl-x-8-map ">"  [?≥])
 (define-key 'iso-transl-ctl-x-8-map "="  [?≠])
-(define-key 'iso-transl-ctl-x-8-map "v"  [?√])
 (define-key 'iso-transl-ctl-x-8-map "\\" [?«])
 (define-key 'iso-transl-ctl-x-8-map "|"  [?»])
-(define-key 'iso-transl-ctl-x-8-map "D"  [?∕])
 (define-key 'iso-transl-ctl-x-8-map "e"  [?…])
-(define-key 'iso-transl-ctl-x-8-map "i"  [?∆])  ;; 0x2206  INCREMENT
-(define-key 'iso-transl-ctl-x-8-map "j"  [?◄])
-(define-key 'iso-transl-ctl-x-8-map "k"  [?►])
 (define-key 'iso-transl-ctl-x-8-map "E"  [?∈])  ;; 0x2208  ELEMENT OF
-
+(define-key 'iso-transl-ctl-x-8-map "p"  [?¤])
+(define-key 'iso-transl-ctl-x-8-map "("  [?⸨])
+(define-key 'iso-transl-ctl-x-8-map ")"  [?⸩])
+(define-key 'iso-transl-ctl-x-8-map "n"  [?‹])
+(define-key 'iso-transl-ctl-x-8-map "m"  [?›])
+(define-key 'iso-transl-ctl-x-8-map "s"  [?§])
+(define-key 'iso-transl-ctl-x-8-map "u"  [?↑])
+(define-key 'iso-transl-ctl-x-8-map "d"  [?↓])
+(define-key 'iso-transl-ctl-x-8-map "i"  [?∆])  ;; 0x2206  INCREMENT
 
 ;; Change C-x o to 'switch-window'
 
