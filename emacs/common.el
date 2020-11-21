@@ -322,6 +322,7 @@
 (define-key 'iso-transl-ctl-x-8-map "u"  [?↑])
 (define-key 'iso-transl-ctl-x-8-map "d"  [?↓])
 (define-key 'iso-transl-ctl-x-8-map "i"  [?∆])  ;; 0x2206  INCREMENT
+(define-key 'iso-transl-ctl-x-8-map "w"  [?◁])
 
 ;; Change C-x o to 'switch-window'
 
