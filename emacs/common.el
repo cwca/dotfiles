@@ -303,7 +303,6 @@
 (define-key 'iso-transl-ctl-x-8-map "f"  [?ƒ])
 (define-key 'iso-transl-ctl-x-8-map "("  [?‹])
 (define-key 'iso-transl-ctl-x-8-map ")"  [?›])
-(define-key 'iso-transl-ctl-x-8-map "X"  [?•])
 (define-key 'iso-transl-ctl-x-8-map ";"  [?←])
 (define-key 'iso-transl-ctl-x-8-map ":"  [?→])
 (define-key 'iso-transl-ctl-x-8-map "<"  [?≤])
@@ -311,12 +310,20 @@
 (define-key 'iso-transl-ctl-x-8-map "="  [?≠])
 (define-key 'iso-transl-ctl-x-8-map "\\" [?«])
 (define-key 'iso-transl-ctl-x-8-map "|"  [?»])
-(define-key 'iso-transl-ctl-x-8-map "e"  [?…])
-(define-key 'iso-transl-ctl-x-8-map "E"  [?∈])  ;; 0x2208  ELEMENT OF
+(define-key 'iso-transl-ctl-x-8-map "r"  [?…])
+(define-key 'iso-transl-ctl-x-8-map "e"  [?∈])  ;; ELEMENT OF
+(define-key 'iso-transl-ctl-x-8-map "E"  [?∉])  ;; NOT AN ELEMENT OF
 (define-key 'iso-transl-ctl-x-8-map "p"  [?¤])
 (define-key 'iso-transl-ctl-x-8-map "s"  [?§])
+(define-key 'iso-transl-ctl-x-8-map "t"  [?×])  ;; MULTIPLY
 (define-key 'iso-transl-ctl-x-8-map "u"  [?↑])
 (define-key 'iso-transl-ctl-x-8-map "d"  [?↓])
+(define-key 'iso-transl-ctl-x-8-map "l"  [?¬])  ;; NOT
+(define-key 'iso-transl-ctl-x-8-map "v"  [?∧])  ;; AND
+(define-key 'iso-transl-ctl-x-8-map "V"  [?⊼])  ;; NAND
+(define-key 'iso-transl-ctl-x-8-map "b"  [?∨])  ;; OR
+(define-key 'iso-transl-ctl-x-8-map "B"  [?⊽])  ;; NOR
+(define-key 'iso-transl-ctl-x-8-map "x"  [?⊻])  ;; XOR
 
 
 ;; Change C-x o to 'switch-window'
