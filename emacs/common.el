@@ -57,6 +57,8 @@
 ;; Narrow-to-region C-x n n and C-x n w
 (put 'narrow-to-region 'disabled nil)
 
+;; Make column count start at 1 instead of zero
+(setq column-number-indicator-zero-based nil)
 
 ;; misc
 (display-time)
@@ -318,12 +320,8 @@
 (define-key 'iso-transl-ctl-x-8-map "t"  [?×])  ;; MULTIPLY
 (define-key 'iso-transl-ctl-x-8-map "u"  [?↑])
 (define-key 'iso-transl-ctl-x-8-map "d"  [?↓])
-(define-key 'iso-transl-ctl-x-8-map "l"  [?¬])  ;; NOT
-(define-key 'iso-transl-ctl-x-8-map "v"  [?∧])  ;; AND
-(define-key 'iso-transl-ctl-x-8-map "V"  [?⊼])  ;; NAND
-(define-key 'iso-transl-ctl-x-8-map "b"  [?∨])  ;; OR
-(define-key 'iso-transl-ctl-x-8-map "B"  [?⊽])  ;; NOR
-(define-key 'iso-transl-ctl-x-8-map "x"  [?⊻])  ;; XOR
+(define-key 'iso-transl-ctl-x-8-map "l"  [?λ])
+(define-key 'iso-transl-ctl-x-8-map "n"  [?⍝])
 
 
 ;; Change C-x o to 'switch-window'
